@@ -106,7 +106,7 @@ spring:
       min-idle: 5       # 连接池中的最小空闲连接
   # 数据源配置
   datasource:
-    url: jdbc:mysql://localhost:3306/evaluation?useUnicode=true&characterEncoding=utf8&useSSL=false&tinyInt1isBit=true
+    url: jdbc:mysql://101.132.167.21/jiakao?useUnicode=true&characterEncoding=utf8&useSSL=false&tinyInt1isBit=true
     username: root
     password: 123456
 
@@ -145,7 +145,7 @@ spring:
       min-idle: 5       # 连接池中的最小空闲连接
   # 数据源配置
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/mysiteforme?useUnicode=true&characterEncoding=utf8&useSSL=false&tinyInt1isBit=true
+    url: jdbc:mysql://101.132.167.21/jiakao?useUnicode=true&characterEncoding=utf8&useSSL=false&tinyInt1isBit=true
     username: root
     password: 123456
 
@@ -185,7 +185,7 @@ spring:
       min-idle: 5       # 连接池中的最小空闲连接
   # 数据源配置
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/mysiteforme?useUnicode=true&characterEncoding=utf8&useSSL=false&tinyInt1isBit=true
+    url: jdbc:mysql://101.132.167.21/jiakao?useUnicode=true&characterEncoding=utf8&useSSL=false&tinyInt1isBit=true
     username: root
     password: 123456
 
