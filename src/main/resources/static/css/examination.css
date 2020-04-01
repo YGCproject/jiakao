@@ -1,0 +1,26 @@
+body {
+    margin: 0 auto;
+    padding: 0;
+}
+
+.displayFlex {
+    display: flex;
+    align-items: center;
+}
+
+.layui-form-radio span {
+    font-size: 13px;
+}
+
+.layui-form-radio i {
+    font-size: 14px;
+}
+
+.carOneTest {
+    width: 100%;
+    display: flex;
+    font-weight: bold;
+    font-size: 36px;
+    align-items: center;
+    justify-content: center;
+}
