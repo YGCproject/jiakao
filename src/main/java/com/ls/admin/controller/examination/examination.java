@@ -65,7 +65,12 @@ public class examination {
                     + "/static/video/" + filename;
             //3，返回可供访问的网络路径
             result.put("filePath", filePath);
-            result.put("data", 1);
+            if (examinationService.insertLoad("上传的文件", filePath)) {
+                result.put("data", 1);
+            } else {
+                result.put("data", 0);
+            }
+
             return result;
         } catch (IOException e) {
             e.printStackTrace();

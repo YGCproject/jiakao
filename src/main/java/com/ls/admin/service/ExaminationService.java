@@ -6,4 +6,6 @@ package com.ls.admin.service;
  * @VERSION: 1.0
  **/
 public interface ExaminationService {
+    boolean insertLoad(String name, String url);
+
 }

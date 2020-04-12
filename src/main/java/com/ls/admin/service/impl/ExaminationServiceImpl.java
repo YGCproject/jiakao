@@ -14,4 +14,13 @@ import org.springframework.stereotype.Service;
 public class ExaminationServiceImpl implements ExaminationService {
     @Autowired
     private ExaminationDao examinationDao;
+
+    @Override
+    public boolean insertLoad(String name, String url) {
+        int result = examinationDao.insertLoad(name,url);
+        if (result>0){
+            return  true;
+        }
+        return false;
+    }
 }

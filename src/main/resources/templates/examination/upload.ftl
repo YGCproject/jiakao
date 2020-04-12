@@ -36,7 +36,7 @@
         //指定允许上传的文件类型
         upload.render({
             elem: '#test3'
-            , url: '${base}/examination/insertVideoUrl' //改成您自己的上传接口
+            , url: '${base}/examination/insertVideoUrl' //上传接口
             , accept: 'file' //普通文件
             , done: function (res) {
                 layer.msg('上传成功');
@@ -46,7 +46,7 @@
 
         upload.render({
             elem: '#test5'
-            , url: '${base}/examination/insertVideoUrl' //改成您自己的上传接口
+            , url: '${base}/examination/insertVideoUrl' //上传接口
             , accept: 'video' //视频
             , done: function (res) {
                 layer.msg('上传成功');
