@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ls.admin.dao.SubjectMapper">
+
+    <!--查询所有题目（（分页）-->
+    <select id="selectSubject" parameterType="java.lang.Integer" resultType="HashMap">
+        select * from subject as s  left join (select id,content as a_content from answer) as a1 on s.a_id = a1.Id
+        left join (select id,content as b_content from answer) as a2 on s.b_id = a2.Id
+        left join (select id,content as c_content from answer) as a3 on s.c_id = a3.Id
+        left join (select id,content as d_content from answer) as a4 on s.d_id = a4.Id
+        limit ${pages},${limit}
+    </select>
+    <!--查询所有题目-->
+    <select id="selectSubjectCount" resultType="java.lang.Integer">
+          select count(*) from subject
+    </select>
+
+
+    <select id="selectSubjectByName" parameterType="HashMap" resultType="HashMap">
+        select * from subject as s  left join (select id,content as a_content from answer) as a1 on s.a_id = a1.Id
+        left join (select id,content as b_content from answer) as a2 on s.b_id = a2.Id
+        left join (select id,content as c_content from answer) as a3 on s.c_id = a3.Id
+        left join (select id,content as d_content from answer) as a4 on s.d_id = a4.Id
+        where s.subject_name LIKE  concat('%',#{subjectName},'%')
+        limit #{pages},#{limit}
+    </select>
+    <select id="selectSubjectByNameCount"  resultType="java.lang.Integer">
+        select count(*) from subject as s
+        where s.subject_name LIKE  concat('%',#{subjectName},'%')
+
+    </select>
+    <select id="selectInsertId" resultType="java.lang.String">
+         SELECT @@IDENTITY AS 'id'
+    </select>
+    <insert id="insertAnswer" parameterType="java.lang.String" >
+        Insert INTO answer (fication,content)VALUES(#{optionOne},#{content})
+    </insert>
+
+    <insert id="insertSubject" parameterType="java.lang.String">
+        Insert INTO subject (a_id,b_id,c_id,d_id,true_option,subject_name)VALUES(#{aId},#{bId},#{cId},#{dId},#{trueOption},#{subjectName})
+    </insert>
+
+
+    <update id="updateAnswer"  parameterType="HashMap">
+        UPDATE answer SET content = #{content} WHERE id = #{id}
+    </update>
+
+    <update id="updateSubject" parameterType="HashMap">
+        UPDATE subject SET subject_name = #{subjectName},true_option = #{trueOption} WHERE subject_id = #{subjectId}
+    </update>
+</mapper>

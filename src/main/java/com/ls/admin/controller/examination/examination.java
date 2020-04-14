@@ -36,6 +36,11 @@ public class examination {
         return "examination/upload";
     }
 
+    @GetMapping("subject")
+    public String subject() {
+        return "examination/subjectIndex";
+    }
+
     @RequestMapping("insertVideoUrl")
     @ResponseBody
     public Map insertVideoUrl(MultipartFile file, HttpServletRequest request) {
