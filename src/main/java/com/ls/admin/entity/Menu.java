@@ -1,10 +1,11 @@
 package com.ls.admin.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldStrategy;
 import com.ls.admin.base.TreeEntity;
 import org.hibernate.validator.constraints.Length;
-
+@TableName("sys_menu")
 public class Menu extends TreeEntity<Menu> {
     private static final long serialVersionUID = 1L;
     private Long id;

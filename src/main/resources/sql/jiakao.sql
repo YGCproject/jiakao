@@ -1,5 +1,5 @@
 ﻿# Host: localhost  (Version 5.7.22)
-# Date: 2020-03-23 17:58:18
+# Date: 2020-04-17 15:31:07
 # Generator: MySQL-Front 6.0  (Build 2.20)
 
 
@@ -13,12 +13,13 @@ CREATE TABLE `answer` (
   `content` varchar(255) DEFAULT NULL COMMENT '选项内容',
   `flag` varchar(255) DEFAULT '1' COMMENT '状态（0删除）',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='答案';
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='答案';
 
 #
 # Data for table "answer"
 #
 
+INSERT INTO `answer` VALUES (1,'A','答案A','1'),(2,'B','答案B','1'),(3,'C','答案C','1'),(4,'D','答案D','1'),(5,'a','DDDDD','1'),(6,'a','你好呀','1'),(7,'A','1','1'),(8,'A','A','1'),(9,'B','B','1'),(10,'C','C','1'),(11,'D','D','1'),(12,'A','我是A','1'),(13,'B','我是B','1'),(14,'C','我是C','1'),(15,'D','我是D','1'),(16,'A','我是A','1'),(17,'B','我是B','1'),(18,'C','我是C','1'),(19,'D','我是D','1'),(20,'A','我是A啊','1'),(21,'B','我是B啊','1'),(22,'C','我是C','1'),(23,'D','我是D','1');
 
 #
 # Structure for table "category"
@@ -46,24 +47,25 @@ CREATE TABLE `item` (
   `url` varchar(255) DEFAULT NULL COMMENT '视屏连接地址',
   `flag` int(11) DEFAULT '1' COMMENT '状态（0删除）',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='题库';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='题库';
 
 #
 # Data for table "item"
 #
 
+INSERT INTO `item` VALUES (1,'上传的文件','http://localhost:8085/static/video/wax.mp4',1),(2,'上传的文件','http://localhost:8085/static/video/League of Legends (TM) Client 2019_4_26 23_45_14.mp4',1);
 
 #
 # Structure for table "i_answer"
 #
 
 CREATE TABLE `i_answer` (
-  `i_Id` int(11) NOT NULL DEFAULT '0' COMMENT '题id',
+  `i_id` int(11) NOT NULL DEFAULT '0' COMMENT '题id',
   `a_Id` int(11) NOT NULL DEFAULT '0' COMMENT '答案id',
   `right` int(11) DEFAULT '0' COMMENT '是否正确答案（0错误，1正确）',
-  PRIMARY KEY (`i_Id`,`a_Id`),
-  KEY `a_Id` (`a_Id`,`i_Id`),
-  CONSTRAINT `i_answer_ibfk_1` FOREIGN KEY (`i_Id`) REFERENCES `item` (`Id`),
+  PRIMARY KEY (`i_id`,`a_Id`) USING BTREE,
+  KEY `a_Id` (`a_Id`,`i_id`),
+  CONSTRAINT `i_answer_ibfk_1` FOREIGN KEY (`i_id`) REFERENCES `item` (`Id`),
   CONSTRAINT `i_answer_ibfk_2` FOREIGN KEY (`a_Id`) REFERENCES `answer` (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='题_答案关联表';
 
@@ -108,6 +110,27 @@ CREATE TABLE `i_paper` (
 # Data for table "i_paper"
 #
 
+
+#
+# Structure for table "subject"
+#
+
+CREATE TABLE `subject` (
+  `subject_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '题目ID',
+  `subject_name` varchar(255) DEFAULT NULL COMMENT '题目名称',
+  `a_id` int(11) DEFAULT NULL COMMENT 'A选项ID',
+  `b_id` int(11) DEFAULT NULL COMMENT 'B选项ID',
+  `c_id` int(11) DEFAULT NULL COMMENT 'C选项ID',
+  `d_id` int(11) DEFAULT NULL COMMENT 'D选项ID',
+  `true_option` varchar(60) DEFAULT NULL COMMENT '正确选项ID',
+  PRIMARY KEY (`subject_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='题目表';
+
+#
+# Data for table "subject"
+#
+
+INSERT INTO `subject` VALUES (1,'题目一',1,2,3,4,'1'),(2,'测试题目',16,17,18,19,'A'),(3,'测试题目',20,21,22,23,'A');
 
 #
 # Structure for table "sys_log"
@@ -174,13 +197,13 @@ CREATE TABLE `sys_menu` (
   `remarks` varchar(255) DEFAULT NULL,
   `del_flag` tinyint(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COMMENT='权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8 COMMENT='权限表';
 
 #
 # Data for table "sys_menu"
 #
 
-INSERT INTO `sys_menu` VALUES (1,'系统管理',NULL,1,'1,',20,'',NULL,'',NULL,1,'',1,'2018-01-16 11:29:46',1,'2018-01-20 03:09:26',NULL,0),(2,'系统用户管理',1,2,'1,2,',9,'/admin/system/user/list',NULL,'','#47e69c',1,'sys:user:list',1,'2018-01-16 11:31:18',1,'2018-01-20 05:59:20',NULL,0),(3,'系统角色管理',1,2,'1,3,',10,'/admin/system/role/list',NULL,'','#c23ab9',1,'sys:role:list',1,'2018-01-16 11:32:33',1,'2018-01-20 05:58:58',NULL,0),(4,'系统权限管理',1,2,'1,4,',20,'/admin/system/menu/list',NULL,'','#d4573b',1,'sys:menu:list',1,'2018-01-16 11:33:19',1,'2018-02-08 09:49:28',NULL,0),(5,'系统资源管理',1,2,'1,5,',30,'/admin/system/rescource/list',NULL,'','#f5e42a',1,'sys:rescource:list',1,'2018-01-16 11:34:48',1,'2018-01-20 05:56:35',NULL,1),(6,'系统日志管理',1,2,'1,6,',40,'/admin/system/log/list',NULL,'','#b56c18',1,'sys:log:list',1,'2018-01-16 11:35:31',1,'2018-01-20 05:12:17',NULL,0),(7,'网站基本信息',1,2,'1,7,',50,'/admin/system/site/show',NULL,'','#95deb9',1,'sys:site:list',1,'2018-01-16 11:36:50',1,'2018-01-20 05:55:44',NULL,1),(8,'数据库管理',1,2,'1,8,',60,'/admin/system/table/list',NULL,'','#369e16',1,'sys:table:list',1,'2018-01-16 11:38:29',1,'2018-01-20 03:14:23',NULL,1),(9,'系统字典管理',1,2,'1,9,',70,'/admin/system/dict/list',NULL,'','#1bbcc2',1,'sys:dict:list',1,'2018-01-16 14:51:52',1,'2018-01-20 03:12:27',NULL,1),(10,'博客管理',NULL,1,'10,',10,'',NULL,'',NULL,1,'',1,'2018-01-17 13:21:53',1,'2018-01-22 00:28:28',NULL,1),(11,'栏目管理',10,2,'10,11,',6,'/admin/blogChannel/list',NULL,'',NULL,1,'blog:channel:list',1,'2018-01-17 13:22:57',1,'2018-02-08 10:20:54',NULL,1),(12,'博客评论',10,2,'10,12,',7,'/admin/blogComment/list',NULL,'','#c8e332',1,'blog:comment:list',1,'2018-01-17 13:23:52',1,'2018-02-08 10:25:26',NULL,1),(13,'博客文章',10,2,'10,13,',8,'/admin/blogArticle/list',NULL,'','#1962b5',1,'blog:article:list',1,'2018-01-17 16:02:07',1,'2018-02-08 10:26:13',NULL,1),(14,'定时任务',NULL,1,'14,',5,'',NULL,'',NULL,1,'',1,'2018-01-26 22:39:35',1,'2018-02-08 10:31:05',NULL,1),(15,'任务列表',14,2,'14,15,',15,'/admin/quartzTask/list',NULL,'','#d6d178',1,'quartz:task:list',1,'2018-01-26 22:41:25',1,'2018-02-08 10:31:11',NULL,1),(16,'任务执行日志',14,2,'14,16,',10,'/admin/quartzTaskLog/list',NULL,'','#5158d6',1,'quartz:log:list',1,'2018-01-27 01:07:11',1,'2018-02-08 10:37:51',NULL,1),(17,'新增字典',9,3,'1,9,17,',0,'',NULL,NULL,NULL,0,'sys:dict:add',1,'2018-02-08 09:39:09',1,'2018-02-08 09:39:19',NULL,1),(18,'编辑字典',9,3,'1,9,18,',10,'',NULL,NULL,NULL,0,'sys:dict:edit',1,'2018-02-08 09:40:37',1,'2018-02-08 09:40:46',NULL,1),(19,'编辑字典类型',9,3,'1,9,19,',20,'',NULL,NULL,NULL,0,'sys:dict:editType',1,'2018-02-08 09:42:46',1,'2018-02-08 09:54:07',NULL,1),(20,'新增系统权限',4,3,'1,4,20,',0,'',NULL,NULL,NULL,0,'sys:menu:add',1,'2018-02-08 09:49:15',1,'2018-02-08 09:49:38',NULL,0),(21,'编辑系统权限',4,3,'1,4,21,',10,'',NULL,NULL,NULL,0,'sys:menu:edit',1,'2018-02-08 09:50:16',1,'2018-02-08 09:50:25',NULL,0),(22,'删除系统权限',4,3,'1,4,22,',20,'',NULL,NULL,NULL,0,'sys:menu:delete',1,'2018-02-08 09:51:53',1,'2018-02-08 09:53:42',NULL,0),(23,'删除系统资源',5,3,'1,5,23,',0,'',NULL,NULL,NULL,0,'sys:rescource:delete',1,'2018-02-08 09:56:44',1,'2018-02-08 09:56:53',NULL,1),(24,'新增系统角色',3,3,'1,3,24,',0,'',NULL,NULL,NULL,0,'sys:role:add',1,'2018-02-08 09:58:11',1,'2018-02-08 09:58:11',NULL,0),(25,'编辑菜单权限',3,3,'1,3,25,',10,'',NULL,NULL,NULL,0,'sys:role:edit',1,'2018-02-08 09:59:01',1,'2018-02-08 09:59:01',NULL,0),(26,'删除角色',3,3,'1,3,26,',20,'',NULL,NULL,NULL,0,'sys:role:delete',1,'2018-02-08 09:59:56',1,'2018-02-08 09:59:56',NULL,0),(27,'编辑系统信息',7,3,'1,7,27,',0,'',NULL,NULL,NULL,0,'sys:site:edit',1,'2018-02-08 10:01:40',1,'2018-02-08 10:01:40',NULL,1),(28,'数据库新增',8,3,'1,8,28,',0,'',NULL,NULL,NULL,0,'sys:table:add',1,'2018-02-08 10:02:51',1,'2018-02-08 10:02:51',NULL,1),(29,'编辑数据库',8,3,'1,8,29,',10,'',NULL,NULL,NULL,0,'sys:table:edit',1,'2018-02-08 10:03:58',1,'2018-02-08 10:03:58',NULL,1),(30,'新增数据库字段',8,3,'1,8,30,',20,'',NULL,NULL,NULL,0,'sys:table:addField',1,'2018-02-08 10:05:11',1,'2018-02-08 10:05:11',NULL,1),(31,'编辑数据库字段',8,3,'1,8,31,',30,'',NULL,NULL,NULL,0,'sys:table:editField',1,'2018-02-08 10:05:47',1,'2018-02-08 10:05:47',NULL,1),(32,'删除数据库字段',8,3,'1,8,32,',40,'',NULL,NULL,NULL,0,'sys:table:deleteField',1,'2018-02-08 10:07:29',1,'2018-02-08 10:15:39',NULL,1),(33,'删除数据库',8,3,'1,8,33,',50,'',NULL,NULL,NULL,0,'sys:table:deleteTable',1,'2018-02-08 10:08:16',1,'2018-02-08 10:08:16',NULL,1),(34,'下载源码',8,3,'1,8,34,',60,'',NULL,NULL,NULL,0,'sys:table:download',1,'2018-02-08 10:09:28',1,'2018-02-08 10:09:28',NULL,1),(35,'新增系统用户',2,3,'1,2,35,',0,'',NULL,NULL,NULL,0,'sys:user:add',1,'2018-02-08 10:10:32',1,'2018-02-08 10:10:32',NULL,0),(36,'编辑系统用户',2,3,'1,2,36,',10,'',NULL,NULL,NULL,0,'sys:user:edit',1,'2018-02-08 10:11:49',1,'2018-02-08 10:11:49',NULL,0),(37,'删除系统用户',2,3,'1,2,37,',20,'',NULL,NULL,NULL,0,'sys:user:delete',1,'2018-02-08 10:12:43',1,'2018-02-08 10:12:43',NULL,0),(38,'新增博客文章',13,3,'10,13,38,',0,'',NULL,NULL,NULL,0,'blog:article:add',1,'2018-02-08 10:16:59',1,'2018-02-08 10:16:59',NULL,1),(39,'博客文章编辑',13,3,'10,13,39,',10,'',NULL,NULL,NULL,0,'blog:article:edit',1,'2018-02-08 10:17:16',1,'2018-02-08 10:17:16',NULL,1),(40,'博客文章删除',13,3,'10,13,40,',20,'',NULL,NULL,NULL,0,'blog:article:delete',1,'2018-02-08 10:17:34',1,'2018-02-08 10:44:02',NULL,1),(41,'博客评论回复',12,3,'10,12,41,',0,'',NULL,NULL,NULL,0,'blog:comment:reply',1,'2018-02-08 10:19:29',1,'2018-02-08 10:20:33',NULL,1),(42,'新增博客栏目',11,3,'10,11,42,',0,'',NULL,NULL,NULL,0,'blog:channel:add',1,'2018-02-08 10:22:06',1,'2018-02-08 10:22:06',NULL,1),(43,'编辑博客栏目',11,3,'10,11,43,',10,'',NULL,NULL,NULL,0,'blog:channel:edit',1,'2018-02-08 10:23:31',1,'2018-02-08 10:23:31',NULL,1),(44,'删除博客栏目',11,3,'10,11,44,',20,'',NULL,NULL,NULL,0,'blog:channel:delete',1,'2018-02-08 10:23:57',1,'2018-02-08 10:23:57',NULL,1),(45,'删除博客评论',12,3,'10,12,45,',10,'',NULL,NULL,NULL,0,'blog:comment:delete',1,'2018-02-08 10:28:48',1,'2018-02-08 10:28:48',NULL,1),(46,'新增定时任务',15,3,'14,15,46,',0,'',NULL,NULL,NULL,0,'quartz:task:add',1,'2018-02-08 10:32:46',1,'2018-02-08 10:32:46',NULL,1),(47,'编辑定时任务',15,3,'14,15,47,',10,'',NULL,NULL,NULL,0,'quartz:task:edit',1,'2018-02-08 10:34:18',1,'2018-02-08 10:34:18',NULL,1),(48,'删除定时任务',15,3,'14,15,48,',20,'',NULL,NULL,NULL,0,'quartz:task:delete',1,'2018-02-08 10:35:07',1,'2018-02-08 10:35:07',NULL,1),(49,'暂停定时任务',15,3,'14,15,49,',30,'',NULL,NULL,NULL,0,'quartz:task:paush',1,'2018-02-08 10:35:43',1,'2018-02-08 10:35:43',NULL,1),(50,'恢复运行任务',15,3,'14,15,50,',40,'',NULL,NULL,NULL,0,'quartz:task:resume',1,'2018-02-08 10:36:26',1,'2018-02-08 10:36:26',NULL,1),(51,'立即执行运行任务',15,3,'14,15,51,',50,'',NULL,NULL,NULL,0,'quartz:task:run',1,'2018-02-08 10:36:55',1,'2018-02-08 10:36:55',NULL,1),(52,'删除定时任务日志',16,3,'14,16,52,',0,'',NULL,NULL,NULL,0,'quartz:log:delete',1,'2018-02-08 10:39:04',1,'2018-02-08 10:39:04',NULL,1),(53,'修改密码',2,3,'1,2,53,',30,'',NULL,'',NULL,0,'sys:user:changePassword',1,'2018-03-15 10:14:06',1,'2018-03-15 10:14:06',NULL,0),(54,'删除字典',9,3,'1,9,54,',30,'',NULL,NULL,NULL,0,'sys:dict:delete',1,'2018-03-15 10:16:55',1,'2018-03-15 10:16:55',NULL,1),(55,'系统日志删除',6,3,'1,6,55,',0,'',NULL,NULL,NULL,0,'system:logs:delete',1,'2018-06-16 04:30:32',1,'2018-06-16 04:30:32',NULL,0),(56,'博客标签',10,2,'10,56,',3,'/admin/blogTags/list',NULL,'','#c3e8ce',1,'blog:tags:list',1,'2018-06-16 04:42:15',1,'2018-06-16 04:42:30',NULL,1),(57,'博客标签新增',56,3,'10,56,57,',0,'',NULL,NULL,NULL,0,'blog:tags:add',1,'2018-06-16 04:43:02',1,'2018-06-16 04:43:02',NULL,1),(58,'博客标签编辑',56,3,'10,56,58,',10,'',NULL,NULL,NULL,0,'blog:tags:edit',1,'2018-06-16 04:43:26',1,'2018-06-16 04:43:26',NULL,1),(59,'博客标签删除',56,3,'10,56,59,',20,'',NULL,NULL,NULL,0,'blog:tags:delete',1,'2018-06-16 04:43:56',1,'2018-06-16 04:43:56',NULL,1),(60,'Druid数据监控',1,2,'1,60,',25,'/admin/druid/list',NULL,'','#7e8755',1,'sys:druid:list',1,'2018-06-16 05:06:17',1,'2018-06-16 05:06:26',NULL,1),(61,'七牛云存储信息',7,3,'1,7,61,',10,'',NULL,NULL,NULL,0,'sys:site:editQiniu',1,'2018-07-12 18:46:39',1,'2018-07-12 18:46:39',NULL,1),(62,'阿里云信息存储',7,3,'1,7,62,',20,'',NULL,NULL,NULL,0,'sys:site:editOss',1,'2018-07-12 18:47:05',1,'2018-07-12 18:47:05',NULL,1);
+INSERT INTO `sys_menu` VALUES (1,'系统管理',NULL,1,'1,',20,'',NULL,'',NULL,1,'',1,'2018-01-16 11:29:46',1,'2018-01-20 03:09:26',NULL,0),(2,'系统用户管理',1,2,'1,2,',9,'/admin/system/user/list',NULL,'','#47e69c',1,'sys:user:list',1,'2018-01-16 11:31:18',1,'2018-01-20 05:59:20',NULL,0),(3,'系统角色管理',1,2,'1,3,',10,'/admin/system/role/list',NULL,'','#c23ab9',1,'sys:role:list',1,'2018-01-16 11:32:33',1,'2018-01-20 05:58:58',NULL,0),(4,'系统权限管理',1,2,'1,4,',20,'/admin/system/menu/list',NULL,'','#d4573b',1,'sys:menu:list',1,'2018-01-16 11:33:19',1,'2018-02-08 09:49:28',NULL,0),(5,'系统资源管理',1,2,'1,5,',30,'/admin/system/rescource/list',NULL,'','#f5e42a',1,'sys:rescource:list',1,'2018-01-16 11:34:48',1,'2018-01-20 05:56:35',NULL,0),(6,'系统日志管理',1,2,'1,6,',40,'/admin/system/log/list',NULL,'','#b56c18',1,'sys:log:list',1,'2018-01-16 11:35:31',1,'2018-01-20 05:12:17',NULL,0),(7,'网站基本信息',1,2,'1,7,',50,'/admin/system/site/show',NULL,'','#95deb9',1,'sys:site:list',1,'2018-01-16 11:36:50',1,'2018-01-20 05:55:44',NULL,0),(8,'数据库管理',1,2,'1,8,',60,'/admin/system/table/list',NULL,'','#369e16',1,'sys:table:list',1,'2018-01-16 11:38:29',1,'2018-01-20 03:14:23',NULL,0),(9,'系统字典管理',1,2,'1,9,',70,'/admin/system/dict/list',NULL,'','#1bbcc2',1,'sys:dict:list',1,'2018-01-16 14:51:52',1,'2018-01-20 03:12:27',NULL,0),(10,'博客管理',NULL,1,'10,',10,'',NULL,'',NULL,1,'',1,'2018-01-17 13:21:53',1,'2018-01-22 00:28:28',NULL,1),(11,'栏目管理',10,2,'10,11,',6,'/admin/blogChannel/list',NULL,'',NULL,1,'blog:channel:list',1,'2018-01-17 13:22:57',1,'2018-02-08 10:20:54',NULL,1),(12,'博客评论',10,2,'10,12,',7,'/admin/blogComment/list',NULL,'','#c8e332',1,'blog:comment:list',1,'2018-01-17 13:23:52',1,'2018-02-08 10:25:26',NULL,1),(13,'博客文章',10,2,'10,13,',8,'/admin/blogArticle/list',NULL,'','#1962b5',1,'blog:article:list',1,'2018-01-17 16:02:07',1,'2018-02-08 10:26:13',NULL,1),(14,'定时任务',NULL,1,'14,',5,'',NULL,'',NULL,1,'',1,'2018-01-26 22:39:35',1,'2018-02-08 10:31:05',NULL,1),(15,'任务列表',14,2,'14,15,',15,'/admin/quartzTask/list',NULL,'','#d6d178',1,'quartz:task:list',1,'2018-01-26 22:41:25',1,'2018-02-08 10:31:11',NULL,1),(16,'任务执行日志',14,2,'14,16,',10,'/admin/quartzTaskLog/list',NULL,'','#5158d6',1,'quartz:log:list',1,'2018-01-27 01:07:11',1,'2018-02-08 10:37:51',NULL,1),(17,'新增字典',9,3,'1,9,17,',0,'',NULL,NULL,NULL,0,'sys:dict:add',1,'2018-02-08 09:39:09',1,'2018-02-08 09:39:19',NULL,1),(18,'编辑字典',9,3,'1,9,18,',10,'',NULL,NULL,NULL,0,'sys:dict:edit',1,'2018-02-08 09:40:37',1,'2018-02-08 09:40:46',NULL,1),(19,'编辑字典类型',9,3,'1,9,19,',20,'',NULL,NULL,NULL,0,'sys:dict:editType',1,'2018-02-08 09:42:46',1,'2018-02-08 09:54:07',NULL,1),(20,'新增系统权限',4,3,'1,4,20,',0,'',NULL,NULL,NULL,0,'sys:menu:add',1,'2018-02-08 09:49:15',1,'2018-02-08 09:49:38',NULL,0),(21,'编辑系统权限',4,3,'1,4,21,',10,'',NULL,NULL,NULL,0,'sys:menu:edit',1,'2018-02-08 09:50:16',1,'2018-02-08 09:50:25',NULL,0),(22,'删除系统权限',4,3,'1,4,22,',20,'',NULL,NULL,NULL,0,'sys:menu:delete',1,'2018-02-08 09:51:53',1,'2018-02-08 09:53:42',NULL,0),(23,'删除系统资源',5,3,'1,5,23,',0,'',NULL,NULL,NULL,0,'sys:rescource:delete',1,'2018-02-08 09:56:44',1,'2018-02-08 09:56:53',NULL,1),(24,'新增系统角色',3,3,'1,3,24,',0,'',NULL,NULL,NULL,0,'sys:role:add',1,'2018-02-08 09:58:11',1,'2018-02-08 09:58:11',NULL,0),(25,'编辑菜单权限',3,3,'1,3,25,',10,'',NULL,NULL,NULL,0,'sys:role:edit',1,'2018-02-08 09:59:01',1,'2018-02-08 09:59:01',NULL,0),(26,'删除角色',3,3,'1,3,26,',20,'',NULL,NULL,NULL,0,'sys:role:delete',1,'2018-02-08 09:59:56',1,'2018-02-08 09:59:56',NULL,0),(27,'编辑系统信息',7,3,'1,7,27,',0,'',NULL,NULL,NULL,0,'sys:site:edit',1,'2018-02-08 10:01:40',1,'2018-02-08 10:01:40',NULL,1),(28,'数据库新增',8,3,'1,8,28,',0,'',NULL,NULL,NULL,0,'sys:table:add',1,'2018-02-08 10:02:51',1,'2018-02-08 10:02:51',NULL,1),(29,'编辑数据库',8,3,'1,8,29,',10,'',NULL,NULL,NULL,0,'sys:table:edit',1,'2018-02-08 10:03:58',1,'2018-02-08 10:03:58',NULL,1),(30,'新增数据库字段',8,3,'1,8,30,',20,'',NULL,NULL,NULL,0,'sys:table:addField',1,'2018-02-08 10:05:11',1,'2018-02-08 10:05:11',NULL,1),(31,'编辑数据库字段',8,3,'1,8,31,',30,'',NULL,NULL,NULL,0,'sys:table:editField',1,'2018-02-08 10:05:47',1,'2018-02-08 10:05:47',NULL,1),(32,'删除数据库字段',8,3,'1,8,32,',40,'',NULL,NULL,NULL,0,'sys:table:deleteField',1,'2018-02-08 10:07:29',1,'2018-02-08 10:15:39',NULL,1),(33,'删除数据库',8,3,'1,8,33,',50,'',NULL,NULL,NULL,0,'sys:table:deleteTable',1,'2018-02-08 10:08:16',1,'2018-02-08 10:08:16',NULL,1),(34,'下载源码',8,3,'1,8,34,',60,'',NULL,NULL,NULL,0,'sys:table:download',1,'2018-02-08 10:09:28',1,'2018-02-08 10:09:28',NULL,1),(35,'新增系统用户',2,3,'1,2,35,',0,'',NULL,NULL,NULL,0,'sys:user:add',1,'2018-02-08 10:10:32',1,'2018-02-08 10:10:32',NULL,0),(36,'编辑系统用户',2,3,'1,2,36,',10,'',NULL,NULL,NULL,0,'sys:user:edit',1,'2018-02-08 10:11:49',1,'2018-02-08 10:11:49',NULL,0),(37,'删除系统用户',2,3,'1,2,37,',20,'',NULL,NULL,NULL,0,'sys:user:delete',1,'2018-02-08 10:12:43',1,'2018-02-08 10:12:43',NULL,0),(38,'新增博客文章',13,3,'10,13,38,',0,'',NULL,NULL,NULL,0,'blog:article:add',1,'2018-02-08 10:16:59',1,'2018-02-08 10:16:59',NULL,1),(39,'博客文章编辑',13,3,'10,13,39,',10,'',NULL,NULL,NULL,0,'blog:article:edit',1,'2018-02-08 10:17:16',1,'2018-02-08 10:17:16',NULL,1),(40,'博客文章删除',13,3,'10,13,40,',20,'',NULL,NULL,NULL,0,'blog:article:delete',1,'2018-02-08 10:17:34',1,'2018-02-08 10:44:02',NULL,1),(41,'博客评论回复',12,3,'10,12,41,',0,'',NULL,NULL,NULL,0,'blog:comment:reply',1,'2018-02-08 10:19:29',1,'2018-02-08 10:20:33',NULL,1),(42,'新增博客栏目',11,3,'10,11,42,',0,'',NULL,NULL,NULL,0,'blog:channel:add',1,'2018-02-08 10:22:06',1,'2018-02-08 10:22:06',NULL,1),(43,'编辑博客栏目',11,3,'10,11,43,',10,'',NULL,NULL,NULL,0,'blog:channel:edit',1,'2018-02-08 10:23:31',1,'2018-02-08 10:23:31',NULL,1),(44,'删除博客栏目',11,3,'10,11,44,',20,'',NULL,NULL,NULL,0,'blog:channel:delete',1,'2018-02-08 10:23:57',1,'2018-02-08 10:23:57',NULL,1),(45,'删除博客评论',12,3,'10,12,45,',10,'',NULL,NULL,NULL,0,'blog:comment:delete',1,'2018-02-08 10:28:48',1,'2018-02-08 10:28:48',NULL,1),(46,'新增定时任务',15,3,'14,15,46,',0,'',NULL,NULL,NULL,0,'quartz:task:add',1,'2018-02-08 10:32:46',1,'2018-02-08 10:32:46',NULL,1),(47,'编辑定时任务',15,3,'14,15,47,',10,'',NULL,NULL,NULL,0,'quartz:task:edit',1,'2018-02-08 10:34:18',1,'2018-02-08 10:34:18',NULL,1),(48,'删除定时任务',15,3,'14,15,48,',20,'',NULL,NULL,NULL,0,'quartz:task:delete',1,'2018-02-08 10:35:07',1,'2018-02-08 10:35:07',NULL,1),(49,'暂停定时任务',15,3,'14,15,49,',30,'',NULL,NULL,NULL,0,'quartz:task:paush',1,'2018-02-08 10:35:43',1,'2018-02-08 10:35:43',NULL,1),(50,'恢复运行任务',15,3,'14,15,50,',40,'',NULL,NULL,NULL,0,'quartz:task:resume',1,'2018-02-08 10:36:26',1,'2018-02-08 10:36:26',NULL,1),(51,'立即执行运行任务',15,3,'14,15,51,',50,'',NULL,NULL,NULL,0,'quartz:task:run',1,'2018-02-08 10:36:55',1,'2018-02-08 10:36:55',NULL,1),(52,'删除定时任务日志',16,3,'14,16,52,',0,'',NULL,NULL,NULL,0,'quartz:log:delete',1,'2018-02-08 10:39:04',1,'2018-02-08 10:39:04',NULL,1),(53,'修改密码',2,3,'1,2,53,',30,'',NULL,'',NULL,0,'sys:user:changePassword',1,'2018-03-15 10:14:06',1,'2018-03-15 10:14:06',NULL,0),(54,'删除字典',9,3,'1,9,54,',30,'',NULL,NULL,NULL,0,'sys:dict:delete',1,'2018-03-15 10:16:55',1,'2018-03-15 10:16:55',NULL,1),(55,'系统日志删除',6,3,'1,6,55,',0,'',NULL,NULL,NULL,0,'system:logs:delete',1,'2018-06-16 04:30:32',1,'2018-06-16 04:30:32',NULL,0),(56,'博客标签',10,2,'10,56,',3,'/admin/blogTags/list',NULL,'','#c3e8ce',1,'blog:tags:list',1,'2018-06-16 04:42:15',1,'2018-06-16 04:42:30',NULL,1),(57,'博客标签新增',56,3,'10,56,57,',0,'',NULL,NULL,NULL,0,'blog:tags:add',1,'2018-06-16 04:43:02',1,'2018-06-16 04:43:02',NULL,1),(58,'博客标签编辑',56,3,'10,56,58,',10,'',NULL,NULL,NULL,0,'blog:tags:edit',1,'2018-06-16 04:43:26',1,'2018-06-16 04:43:26',NULL,1),(59,'博客标签删除',56,3,'10,56,59,',20,'',NULL,NULL,NULL,0,'blog:tags:delete',1,'2018-06-16 04:43:56',1,'2018-06-16 04:43:56',NULL,1),(60,'Druid数据监控',1,2,'1,60,',25,'/admin/druid/list',NULL,'','#7e8755',1,'sys:druid:list',1,'2018-06-16 05:06:17',1,'2018-06-16 05:06:26',NULL,1),(61,'七牛云存储信息',7,3,'1,7,61,',10,'',NULL,NULL,NULL,0,'sys:site:editQiniu',1,'2018-07-12 18:46:39',1,'2018-07-12 18:46:39',NULL,1),(62,'阿里云信息存储',7,3,'1,7,62,',20,'',NULL,NULL,NULL,0,'sys:site:editOss',1,'2018-07-12 18:47:05',1,'2018-07-12 18:47:05',NULL,1),(63,'题库管理',NULL,1,'1,',20,'',NULL,'',NULL,1,'',1,'2018-01-16 11:29:46',NULL,NULL,NULL,0),(64,'题库',1,2,'1,64，',9,'/admin/system/user/list',NULL,'','#47e69c',1,'sys:user:list',1,'2018-01-16 11:31:18',1,'2018-01-20 05:59:20',NULL,0),(65,'rt',NULL,1,'65,',30,'',NULL,NULL,NULL,1,'',NULL,NULL,NULL,NULL,NULL,1),(66,'选择题',63,2,'1,66,',0,'/subject/goSubject',NULL,NULL,NULL,1,'',NULL,NULL,NULL,NULL,NULL,0),(67,'视频上传',63,2,'1,67,',10,'/examination/upload',NULL,NULL,NULL,1,'',NULL,NULL,NULL,NULL,NULL,0),(68,'在线测试',NULL,1,'68,',40,'/examination/examination',NULL,NULL,NULL,1,'',NULL,NULL,NULL,NULL,NULL,0);
 
 #
 # Structure for table "sys_role"
@@ -218,7 +241,7 @@ CREATE TABLE `sys_role_menu` (
 # Data for table "sys_role_menu"
 #
 
-INSERT INTO `sys_role_menu` VALUES (1,1),(1,2),(1,3),(1,4),(2,1),(2,2),(2,3),(2,4),(2,6),(2,20),(2,21),(2,22),(2,24),(2,25),(2,26),(2,35),(2,36),(2,37),(2,53),(2,55);
+INSERT INTO `sys_role_menu` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(2,1),(2,2),(2,3),(2,4),(2,6),(2,20),(2,21),(2,22),(2,24),(2,25),(2,26),(2,35),(2,36),(2,37),(2,53),(2,55),(2,63),(2,66),(2,67),(2,68);
 
 #
 # Structure for table "sys_user"
