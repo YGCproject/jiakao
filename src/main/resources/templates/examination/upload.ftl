@@ -48,6 +48,7 @@
             elem: '#test5'
             , url: '${base}/examination/insertVideoUrl' //上传接口
             , accept: 'video' //视频
+            ,size:'204800'
             , done: function (res) {
                 layer.msg('上传成功');
                 console.log(res)

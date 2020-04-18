@@ -23,7 +23,7 @@
 <div class="demoTable">
     题目名称：
     <div class="layui-inline">
-        <input class="layui-input" name="subject_name" id="subject_name" placeholder="搜索房屋" autocomplete="off">
+        <input class="layui-input" name="subject_name" id="subject_name" placeholder="搜索试题" autocomplete="off">
     </div>
     <button type="button" class="layui-btn"  id="addSubject">
         <i class="layui-icon">&#xe608;</i> 添加
@@ -83,7 +83,7 @@
             ,page: true //开启分页
             ,cols: [
                 [ //表头
-                    {field: '序号', templet: '#xuhao',title: '序号', width:'10%', sort: true, fixed: 'left', align: 'center'},
+                    {field: '序号', templet: '#xuhao',title: '序号', width:'9%', sort: true, fixed: 'left', align: 'center'},
                     {field: 'subject_name', title: '题目名称', width: '20%',align: 'center'},
                     {field: 'a_content', title: '选项A', width: '15%',align: 'center'},
                     {field: 'b_content', title: '选项B', width: '15%',align: 'center'},

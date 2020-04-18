@@ -14,11 +14,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @Author: luquanlin
- * @Date: 2020/3/29 22:10
- * @VERSION: 1.0
- **/
+
 
 @Controller
 @RequestMapping("examination")
@@ -50,7 +46,8 @@ public class examination {
             return result;
         }
 
-        String realPath = "D:\\jiakao\\learning\\src\\main\\resources\\static\\video";
+        String realPath = "D:\\jiakao\\src\\main\\resources\\static\\video";
+
 
         File dir = new File(realPath);
         if (!dir.isDirectory()) {//文件目录不存在，就创建一个
