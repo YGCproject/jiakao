@@ -24,3 +24,7 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+.layui-form input[type=checkbox], .layui-form input[type=radio], .layui-form select {
+    display: inline-block;
+}

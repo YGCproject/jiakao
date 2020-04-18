@@ -105,21 +105,60 @@
         ];
         var b
         var i = 1
-        for (var index in a) {
-            b = a[index].options
-            $('#targetOptions').append('<div class="layui-card-header" style="background-color: #F2F2F2;margin-top:20px " >\n' +
-                '            <label class="layui-form-label" style="font-size: 16px;width: 30%;text-align: left;margin-top: 3px ">' + i + '.' + a[index].target_name + ' </label>\n' +
-                '        </div>');
-            i++
-            for (var index1 in b) {
-                $('#targetOptions').append('<div class="layui-card-body" style="margin: 0;padding: 0 0 2px 20px">\n' +
-                    '            <span>\n' +
-                    '                <input lay-filter="options" type="radio"\n' +
-                    '                       name="' + a[index].target_id + '" value="' + b[index1].options_id + '" title="' + b[index1].options_content + '" lay-skin="primary">\n' +
-                    '            </span>\n' +
-                    '        </div>')
+        $.ajax({
+            url: '/examination/selectExamAll',
+            type: 'post',
+            success: function (res) {
+                var result = res.data
+                console.log("re", result)
+                result.forEach((item, index) => {
+                    $('#targetOptions').append('<div class="layui-card-header" style="background-color: #F2F2F2;margin-top:20px " >\n' +
+                        '            <label class="layui-form-label" style="font-size: 16px;width: 30%;text-align: left;margin-top: 3px ">' + i + '.' + item.subject_name + ' </label>\n' +
+                        '        </div>' +
+                        '<div class="layui-card-body" style="margin: 0;padding: 0 0 2px 20px">\n' +
+                        '            <span>\n' +
+                        '                <input class="radio" lay-filter="options" type="radio"\n' +
+                        '                       name="' + item.id + '" value="' + item.a_id + '" title="' + item.a_content + '" lay-skin="primary"> '+item.a_content+' \n' +
+                        '            </span>\n' +
+                        '        </div>' +
+                        '<div class="layui-card-body" style="margin: 0;padding: 0 0 2px 20px">\n' +
+                        '            <span>\n' +
+                        '                <input class="radio" lay-filter="options" type="radio"\n' +
+                        '                       name="' + item.id + '" value="' + item.b_id + '" title="' + item.b_content + '" lay-skin="primary">'+item.b_content+' \n' +
+                        '            </span>\n' +
+                        '        </div>' +
+                        '<div  class="layui-card-body" style="margin: 0;padding: 0 0 2px 20px">\n' +
+                        '            <span>\n' +
+                        '                <input class="radio" lay-filter="options" type="radio"\n' +
+                        '                       name="' + item.id + '" value="' + item.c_id + '" title="' + item.c_content + '" lay-skin="primary">'+item.c_content+'\n' +
+                        '            </span>\n' +
+                        '        </div>' +
+                        '<div class="layui-card-body" style="margin: 0;padding: 0 0 2px 20px">\n' +
+                        '            <span>\n' +
+                        '                <input class="radio" lay-filter="options" type="radio"\n' +
+                        '                       name="' + item.id + '" value="' + item.d_id + '" title="' + item.d_content + '" lay-skin="primary">'+item.d_content+'\n' +
+                        '            </span>\n' +
+                        '        </div>');
+                i++
+                // $('#targetOptions').append()
+            })
             }
-        }
+        })
+        // for (var index in a) {
+        //     b = a[index].options
+        //     $('#targetOptions').append('<div class="layui-card-header" style="background-color: #F2F2F2;margin-top:20px " >\n' +
+        //         '            <label class="layui-form-label" style="font-size: 16px;width: 30%;text-align: left;margin-top: 3px ">' + i + '.' + a[index].target_name + ' </label>\n' +
+        //         '        </div>');
+        //     i++
+        //     for (var index1 in b) {
+        //         $('#targetOptions').append('<div class="layui-card-body" style="margin: 0;padding: 0 0 2px 20px">\n' +
+        //             '            <span>\n' +
+        //             '                <input lay-filter="options" type="radio"\n' +
+        //             '                       name="' + a[index].target_id + '" value="' + b[index1].options_id + '" title="' + b[index1].options_content + '" lay-skin="primary">\n' +
+        //             '            </span>\n' +
+        //             '        </div>')
+        //     }
+        // }
         layui.form.render();
 
     });

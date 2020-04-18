@@ -4,4 +4,14 @@
     <insert id="insertLoad">
         insert into item(name,url) values (#{name},#{url})
     </insert>
+
+    <select id="selectExamAll" resultType="HashMap">
+        select *
+        from subject as s
+                 left join (select id, fication, content as a_content from answer) as a1 on s.a_id = a1.Id
+                 left join (select id, content as b_content from answer) as a2 on s.b_id = a2.Id
+                 left join (select id, content as c_content from answer) as a3 on s.c_id = a3.Id
+                 left join (select id, content as d_content from answer) as a4 on s.d_id = a4.Id
+        limit 0,100
+    </select>
 </mapper>

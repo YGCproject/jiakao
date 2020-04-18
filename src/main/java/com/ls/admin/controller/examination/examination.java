@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -78,6 +79,15 @@ public class examination {
             e.printStackTrace();
         }
 
+        return result;
+    }
+
+    @RequestMapping("selectExamAll")
+    @ResponseBody
+    public  Map selectExamAll(){
+        Map result = new HashMap();
+        List<HashMap> exam = examinationService.selectExamAll();
+        result.put("data",exam);
         return result;
     }
 }

@@ -5,6 +5,9 @@ import com.ls.admin.service.ExaminationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * @Author: luquanlin
  * @Date: 2020/3/29 22:27
@@ -22,5 +25,10 @@ public class ExaminationServiceImpl implements ExaminationService {
             return  true;
         }
         return false;
+    }
+
+    @Override
+    public List<HashMap> selectExamAll() {
+        return examinationDao.selectExamAll();
     }
 }
